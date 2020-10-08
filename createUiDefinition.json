@@ -81,6 +81,65 @@
                        }
                    }
                ]
+           },
+		   {
+               "name": "qnaMakerDetails",
+               "label": "QnAMaker Details",
+               "bladeTitle": "QnAMaker Details",
+               "bladeSubtitle": "Enter details for qnamaker deployment",
+               "subLabel": {
+                   "postValidation": "Ready to roll",
+                   "preValidation": "Checking all the details"
+               },
+               "elements": [
+
+
+{
+    "name": "zipUrl",
+    "type": "Microsoft.Common.TextBox",
+    "label": "zipUrl",
+    "defaultValue": "",
+    "toolTip": "Use only allowed characters",
+    "placeholder": "",
+    "constraints": {
+        "required": true
+    }
+},
+{
+    "name": "QnAEndpointHostName",
+    "type": "Microsoft.Common.TextBox",
+    "label": "QnAEndpointHostName",
+    "defaultValue": "",
+    "toolTip": "Use only allowed characters",
+    "placeholder": "",
+    "constraints": {
+        "required": true
+    }
+},
+{
+    "name": "QnAAuthKey",
+    "type": "Microsoft.Common.TextBox",
+    "label": "QnAAuthKey",
+    "defaultValue": "",
+    "toolTip": "Use only allowed characters",
+    "placeholder": "",
+    "constraints": {
+        "required": true
+    }
+},
+{
+    "name": "QnAKnowledgebaseId",
+    "type": "Microsoft.Common.TextBox",
+    "label": "QnAKnowledgebaseId",
+    "defaultValue": "",
+    "toolTip": "Use only allowed characters",
+    "placeholder": "",
+    "constraints": {
+        "required": true
+    }
+}
+				   
+               ]
            }
        ],
        "outputs": {
@@ -88,7 +147,11 @@
            "existingServerFarmId": "[steps('hosting').existingServerFarm.id]",
            "existingServerFarmLocation": "[steps('hosting').existingServerFarm.location]",
            "msAppId": "[steps('overrides').msAppId.appId]",
-           "msAppPassword": "[steps('overrides').password]"
+           "msAppPassword": "[steps('qnaMakerDetails').password]",
+           "zipUrl": "[steps('qnaMakerDetails').zipUrl]",
+           "QnAEndpointHostName": "[steps('qnaMakerDetails').QnAEndpointHostName]",
+           "QnAAuthKey": "[steps('qnaMakerDetails').QnAAuthKey]",
+           "QnAKnowledgebaseId": "[steps('overrides').QnAKnowledgebaseId]"
        },
        "resourceTypes": [ "Microsoft.BotService/bots", "Micrsosoft.KeyVault/vaults", "Microsoft.Web/sites", "Microsoft.Web/serverfarms"]
     }
