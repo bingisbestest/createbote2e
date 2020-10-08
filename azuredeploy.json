@@ -56,7 +56,7 @@
         }
     },
     "variables": {
-        "webAppName": "[concat(parameters('botId'), uniqueString(resourceGroup().name, '-botapp'))]",
+        "webAppName": "[concat(parameters('botId'), '-', uniqueString(resourceGroup().name, '-botapp'))]",
         "appServicePlanPortalName": "[concat('AppServicePlan-', variables('webAppName'))]"
     },
     "resources": [
