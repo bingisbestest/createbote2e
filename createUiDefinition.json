@@ -147,12 +147,12 @@
            "existingServerFarmId": "[steps('hosting').existingServerFarm.id]",
            "existingServerFarmLocation": "[steps('hosting').existingServerFarm.location]",
            "msAppId": "[steps('overrides').msAppId.appId]",
-           "msAppPassword": "[steps('overrides').password]",
+           "msAppPassword": "[steps('overrides').msAppId.password]",
            "zipUrl": "[steps('qnaMakerDetails').zipUrl]",
            "QnAEndpointHostName": "[steps('qnaMakerDetails').QnAEndpointHostName]",
            "QnAAuthKey": "[steps('qnaMakerDetails').QnAAuthKey]",
-           "QnAKnowledgebaseId": "[steps('overrides').QnAKnowledgebaseId]"
+           "QnAKnowledgebaseId": "[steps('qnaMakerDetails').QnAKnowledgebaseId]"
        },
-       "resourceTypes": [ "Microsoft.BotService/bots", "Micrsosoft.KeyVault/vaults", "Microsoft.Web/sites", "Microsoft.Web/serverfarms"]
+       "resourceTypes": [ "Microsoft.BotService/bots", "Microsoft.Web/sites", "Microsoft.Web/serverfarms"]
     }
  }
