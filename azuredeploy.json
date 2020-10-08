@@ -2,11 +2,10 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "webAppName": {
+        "botId": {
             "type": "string",
-            "defaultValue": "[concat('webApp-', uniqueString(resourceGroup().id))]",
             "metadata": {
-                "description": "Web app name."
+                "description": "Bot app name."
             },
             "minLength": 2
         },
@@ -31,6 +30,18 @@
                 "description": "The SKU of Bot Service."
             }
         },
+        "msAppId": {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "msAppPassword": {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "zipUrl": {
+            "defaultValue": "",
+            "type": "String"
+        },
         "QnAEndpointHostName": {
             "defaultValue": "",
             "type": "String"
@@ -42,22 +53,11 @@
         "QnAKnowledgebaseId": {
             "defaultValue": "",
             "type": "String"
-        },
-        "appId": {
-            "defaultValue": "",
-            "type": "String"
-        },
-        "appSecret": {
-            "defaultValue": "",
-            "type": "String"
-        },
-        "zipUrl": {
-            "defaultValue": "",
-            "type": "String"
         }
     },
     "variables": {
-        "appServicePlanPortalName": "[concat('AppServicePlan-', parameters('webAppName'))]"
+        "webAppName": "[concat(parameters('botId'), uniqueString(resourceGroup().name, '-botapp'))]",
+        "appServicePlanPortalName": "[concat('AppServicePlan-', variables('webAppName'))]"
     },
     "resources": [
         {
@@ -72,7 +72,7 @@
         {
             "apiVersion": "2019-08-01",
             "type": "Microsoft.Web/sites",
-            "name": "[parameters('webAppName')]",
+            "name": "[variables('webAppName')]",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
@@ -88,11 +88,11 @@
                         },
                         {
                             "name": "MicrosoftAppId",
-                            "value": "[parameters('appId')]"
+                            "value": "[parameters('msAppId')]"
                         },
                         {
                             "name": "MicrosoftAppPassword",
-                            "value": "[parameters('appSecret')]"
+                            "value": "[parameters('msAppPassword')]"
                         },
                         {
                             "name": "QnAKnowledgebaseId",
@@ -128,7 +128,7 @@
                     "apiVersion": "2015-02-01",
                     "name": "MSDeploy",
                     "dependsOn": [
-                        "[concat('Microsoft.Web/Sites/', parameters('webAppName'))]"
+                        "[concat('Microsoft.Web/Sites/', variables('webAppName'))]"
                     ],
                     "properties": {
                         "packageUri": "[parameters('zipUrl')]",
@@ -141,10 +141,10 @@
         {
             "type": "Microsoft.BotService/botServices",
             "apiVersion": "2017-12-01",
-            "name": "[parameters('webAppName')]",
+            "name": "[parameters('botId')]",
             "location": "global",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/', parameters('webAppName'))]",
+                "[resourceId('Microsoft.Web/sites/', variables('webAppName'))]",
                 "MSDeploy"
             ],
             "sku": {
@@ -152,10 +152,10 @@
             },
             "kind": "sdk",
             "properties": {
-                "name": "[parameters('webAppName')]",
-                "displayName": "[parameters('webAppName')]",
-                "endpoint": "[concat('https://', parameters('webAppName'), '.azurewebsites.net/api/messages')]",
-                "msaAppId": "[parameters('appId')]",
+                "name": "[variables('webAppName')]",
+                "displayName": "[variables('webAppName')]",
+                "endpoint": "[concat('https://', variables('webAppName'), '.azurewebsites.net/api/messages')]",
+                "msaAppId": "[parameters('msAppId')]",
                 "developerAppInsightsApplicationId": "",
                 "developerAppInsightKey": ""
             }
