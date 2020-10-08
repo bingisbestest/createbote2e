@@ -1,0 +1,9 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "QnA Bot",
+    "description": "Create simple qna bot hosted in Azure Web Service",
+    "summary": "Create Azure Bot Service and host a simple qna bot using Azure Web Service",
+    "githubUsername": "bingisbestest",
+    "dateUpdated": "2020-07-10"
+  }
