@@ -151,7 +151,7 @@
            "zipUrl": "[steps('qnaMakerDetails').zipUrl]",
            "QnAEndpointHostName": "[steps('qnaMakerDetails').QnAEndpointHostName]",
            "QnAAuthKey": "[steps('qnaMakerDetails').QnAAuthKey]",
-           "QnAKnowledgebaseId": "[steps('overrides').QnAKnowledgebaseId]"
+           "QnAKnowledgebaseId": "[steps('qnaMakerDetails').QnAKnowledgebaseId]"
        },
        "resourceTypes": [ "Microsoft.BotService/bots", "Micrsosoft.KeyVault/vaults", "Microsoft.Web/sites", "Microsoft.Web/serverfarms"]
     }
