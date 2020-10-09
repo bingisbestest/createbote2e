@@ -80,7 +80,7 @@
                            "hideCertificate": true
                        },
 			   "constraints": {
-    "required": true
+    "required": true,
     "validationMessage": "Password must be at least 8 characters long, contain only numbers and letters"
   },
                    }
