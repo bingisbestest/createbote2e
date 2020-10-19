@@ -133,7 +133,10 @@
                     "properties": {
                         "packageUri": "[parameters('zipUrl')]",
                         "dbType": "None",
-                        "connectionString": ""
+                        "connectionString": "",
+                        "setParameters": {
+                            "IIS Web Application Name": "[variables('webAppName')]"
+                        }
                     }
                 }
             ]
